@@ -5,22 +5,36 @@ const tasksCounter = document.getElementById('tasks-counter');
 
 
 
+async function fetchTodos(){
 
-function fetchTodos(){
+    // fetch('https://jsonplaceholder.typicode.com/todos/').then(function(response){
 
-    fetch('https://jsonplaceholder.typicode.com/todos/').then(function(response){
+    //     return response.json().then(function(data){
 
-        return response.json().then(function(data){
+    //        tasks = data.slice(0,10);
+    //        renderList();
 
-           tasks = data.slice(0,10);
-           renderList();
+    //     });
 
-        });
+    // }).catch(function(error){
 
-    }).catch(function(error){
+    //     console.log(error);
+    // })
+
+    try{
+
+        const response = await  fetch('https://jsonplaceholder.typicode.com/todos/');
+        const data = await response.json();
+        tasks = data.slice(0,10);
+        renderList();
+
+    }catch(error){
 
         console.log(error);
-    })
+
+    }
+    
+
 };
 
 
@@ -92,6 +106,34 @@ function addTask (task) {
 
     if(task){
 
+
+        // fetch('https://jsonplaceholder.typicode.com/todos/',{
+        //     method:'POST',
+        //     headers:{
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(task),
+
+        // }).then(function(response){
+
+        //  return response.json();
+        
+        // }).then(function(data){
+
+        //     tasks.push(task);
+        //     renderList();
+        //     showNotification("Task Added Successfully");
+        //     return;
+
+            
+
+        // }).catch(function(error){
+
+        //     console.log(error);
+        // })
+
+    
+
         tasks.push(task);
         renderList();
         showNotification("Task Added Successfully");
@@ -121,7 +163,7 @@ function handleInputKeyPress(e){
 
     const task = {
 
-        text,
+        title:text,
         id: Date.now(),
         completed:false
     }
